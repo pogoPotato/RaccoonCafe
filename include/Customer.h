@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
 
 enum class CustomerState
 {
@@ -29,9 +30,10 @@ struct Customer {
 
     // QUEUE SYSTEM
     int queueIndex;     // 0 = at counter .. 1+ = waiting in line
+
 };
 
 // yelpppp
 bool isCustomerClicked(const Customer& c, float mx, float my);
-void drawCustomer(SDL_Renderer* renderer, const Customer& c);
+void drawCustomer(SDL_Renderer* renderer, const Customer& c, SDL_Texture* customerTexture);
 void updateCustomer(Customer& c, float dt);

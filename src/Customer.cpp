@@ -1,4 +1,5 @@
 #include "Customer.h"
+#include <iostream>
 
 bool isCustomerClicked(const Customer& c, float mx, float my)
 {
@@ -41,36 +42,47 @@ void updateCustomer(Customer& c, float dt)
     // because these shit rely on the global game state/menu.
 }
 
-void drawCustomer(SDL_Renderer* renderer, const Customer& c)
+void drawCustomer(SDL_Renderer* renderer, const Customer& c, SDL_Texture* customerTexture)
 {
     if (!c.active || c.state == CustomerState::INACTIVE) return;
 
-    // assigning colours for liek debug and shit ? waiting comming received leaving typoe shit
-    switch (c.state)
-    {
-    case CustomerState::ENTERING:
-        SDL_SetRenderDrawColor(renderer, 150, 50, 250, 255); // Purple (Walking in)
-        break;
-    case CustomerState::WAITING:
-        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);  // Yellow (Needs you to click)
-        break;
-    case CustomerState::ORDER_TAKEN:
-    case CustomerState::WAITING_FOOD:
-        SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255); // Gray (Waiting for food)
-        break;
-    case CustomerState::ORDER_READY:
-        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);    // Green (Food is ready!)
-        break;
-    case CustomerState::PAYING:
-        SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);  // Gold (Paying money)
-        break;
-    case CustomerState::LEAVING:
-        SDL_SetRenderDrawColor(renderer, 200, 100, 100, 255); // Reddish (Walking out)
-        break;
-    default:
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        break;
+    // Draw the customer texture if available
+    if (customerTexture) {
+        SDL_RenderTexture(renderer, customerTexture, nullptr, &c.rect);
+    }
+    else {
+        // Fallback: Draw colored rectangle if texture failed to load
+        // Keep your existing color logic for debugging
+        switch (c.state)
+        {
+        case CustomerState::ENTERING:
+            SDL_SetRenderDrawColor(renderer, 150, 50, 250, 255); // Purple (Walking in)
+            break;
+        case CustomerState::WAITING:
+            SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);  // Yellow (Needs you to click)
+            break;
+        case CustomerState::ORDER_TAKEN:
+        case CustomerState::WAITING_FOOD:
+            SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255); // Gray (Waiting for food)
+            break;
+        case CustomerState::ORDER_READY:
+            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);    // Green (Food is ready!)
+            break;
+        case CustomerState::PAYING:
+            SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);  // Gold (Paying money)
+            break;
+        case CustomerState::LEAVING:
+            SDL_SetRenderDrawColor(renderer, 200, 100, 100, 255); // Reddish (Walking out)
+            break;
+        default:
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            break;
+        }
+        SDL_RenderFillRect(renderer, &c.rect);
     }
 
+    // Invisible rectangle for hitbox/collision - always drawn but transparent
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); // Fully transparent
     SDL_RenderFillRect(renderer, &c.rect);
 }

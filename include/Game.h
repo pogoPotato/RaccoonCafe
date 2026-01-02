@@ -63,6 +63,9 @@ struct Game
 
     float splashTimer = 0.0f;
     float splashAlpha = 0.0f;
+
+    //customer texture
+    SDL_Texture* customerTexture = nullptr;
 };
 
 //improving some UIshit

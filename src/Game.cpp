@@ -257,7 +257,7 @@ void initGame(Game& game, SDL_Renderer* renderer) {
 
     //loading it with bold format
 
-    game.font = TTF_OpenFont("assets/Orchidea Couture.ttf", 28);
+    game.font = TTF_OpenFont("C:\\Users\\grand\\Documents\\asset\\orchidea_couture\\Orchidea Couture.ttf", 28);
 
     if (!game.font) {
 
@@ -293,7 +293,7 @@ void initGame(Game& game, SDL_Renderer* renderer) {
 
 
 
-    const char* bgPath = "assets/background.png";
+    const char* bgPath = "C:\\Users\\grand\\Documents\\Projects\\CC++_Project\\SusFox\\RaccoonCafe\\x64\\Debug\\assets\\background.png";
 
     game.backgroundTexture = loadTexture(bgPath, renderer);
 
@@ -302,11 +302,19 @@ void initGame(Game& game, SDL_Renderer* renderer) {
         std::cout << "Failed to load background texture!" << std::endl;
     }
 
-
-
-    const char* path = "assets/store.png";
-
+    //load store texture
+    const char* path = "C:\\Users\\grand\\Documents\\Projects\\CC++_Project\\SusFox\\RaccoonCafe\\x64\\Debug\\assets\\store.png";
     game.storeTexture = loadTexture(path, renderer);
+    if (game.storeTexture == nullptr) {
+        std::cout << "Failed to load store texture!" << std::endl;
+    }
+
+    // Load customer texture
+    const char* cpath = "C:\\Users\\grand\\Documents\\Projects\\CC++_Project\\SusFox\\RaccoonCafe\\x64\\Debug\\assets\\customer.png";
+    game.customerTexture = loadTexture(cpath, renderer);
+    if (game.customerTexture == nullptr) {
+        std::cout << "Failed to load customer texture!" << std::endl;
+    }
 
 
 
@@ -676,7 +684,7 @@ void renderGame(Game& game, SDL_Renderer* renderer) {
 
         }
 
-        drawCustomer(renderer, game.customers[i]);
+        drawCustomer(renderer, game.customers[i],game.customerTexture);
 
         if (game.customers[i].state == CustomerState::WAITING || game.customers[i].state == CustomerState::ORDER_TAKEN) {
 

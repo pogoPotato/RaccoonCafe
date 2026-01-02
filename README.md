@@ -14,7 +14,7 @@ It’s open-source, intentionally **"messy in a good way"**, and serves as a pla
 | Core Gameplay | ✅ Fully Functional |
 | Build System  | ✅ Stable (via `bind`) |
 | Audio         | ❌ Not implemented |
-| Assets        | ❌ Prototype / Placeholder art |
+| Assets        | ✅ Prototype / Placeholder art |
 | Development   | 🧪 Early Alpha / Active Evolution |
 
 ---
