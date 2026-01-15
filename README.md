@@ -40,9 +40,9 @@ It wraps **MSVC tools cleanly** without XML, generators, or headaches.
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### 🧪 Requirements
+### Requirements
 
 - **Windows** (primary target)
 - **MSVC / Visual C++ Build Tools**
